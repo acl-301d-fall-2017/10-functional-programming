@@ -76,8 +76,10 @@ var app = app || {};
             // HINT: This .map() should be set up to return an object literal with two properties.
             // The first property should be pretty straightforward, but you will need to chain some combination of .filter(), .map(), and .reduce() to get the value for the second property.
             const words = Article.all.filter(article => article.author === author).map(article => article.body.split(' ').length).reduce((total, article) => total + article);
+            const numArticles = Article.all.filter(article => article.author === author).length;
+            const avgWordsPerArticle = Math.round(words / numArticles);
 
-            return {author: author, totalWords: words};
+            return {author: author, totalWords: words, numArticles: numArticles, avgWordsPerArticle: avgWordsPerArticle };
         });
     };
 
