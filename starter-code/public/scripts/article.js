@@ -30,17 +30,17 @@ var app = app || {};
     Article.loadAll = rawData => {
         rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODO DONE?: Refactor this .forEach() code, by using a .map() call instead, since what we are trying to accomplish is the transformation of one collection into another. Remember that we can set variables equal to the result of functions. So if we set a variable equal to the result of a .map(), it will be our transformed array.
-    // There is no need to push to anything.
+        // TODO DONE?: Refactor this .forEach() code, by using a .map() call instead, since what we are trying to accomplish is the transformation of one collection into another. Remember that we can set variables equal to the result of functions. So if we set a variable equal to the result of a .map(), it will be our transformed array.
+        // There is no need to push to anything.
 
-    /* OLD forEach():
+        /* OLD forEach():
   rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
 
 */
 
         Article.all = rawData.map(articleObject => new Article(articleObject));
 
-        
+
 
     };
 
@@ -59,7 +59,7 @@ var app = app || {};
 
     // TODO DONE: Chain together a .map() and a .reduce() call to produce an array of unique author names. You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        
+
         const uniqueAuthors = Article.all.map(article => article.author).reduce((uniqueAuthors, author) => {
             if(!uniqueAuthors.includes(author)) {
                 uniqueAuthors.push(author);
