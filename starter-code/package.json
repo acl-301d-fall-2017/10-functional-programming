@@ -9,8 +9,11 @@
   "author": "Code Fellows",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.3",
     "body-parser": "^1.15.2",
-    "pg": "^6.1.2"
+    "express": "^4.13.3",
+    "node": "^9.2.0",
+    "nodemon": "^1.12.5",
+    "pg": "^6.1.2",
+    "nodemon": "^1.12.5"
   }
 }
