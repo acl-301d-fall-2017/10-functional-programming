@@ -30,17 +30,14 @@ var app = app || {};
     Article.loadAll = rawData => {
         rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-        // TODO: Refactor this .forEach() code, by using a .map() call instead, since what we are trying to accomplish is the transformation of one collection into another. Remember that we can set variables equal to the result of functions. So if we set a variable equal to the result of a .map(), it will be our transformed array.
+        // TODO-DONE: Refactor this .forEach() code, by using a .map() call instead, since what we are trying to accomplish is the transformation of one collection into another. Remember that we can set variables equal to the result of functions. So if we set a variable equal to the result of a .map(), it will be our transformed array.
         // There is no need to push to anything.
 
         /* OLD forEach():
   rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
 
 */
-        //not finished
-        const dataArray = rawData.map(articleObject => new Article(articleObject));
-        const dataArrayThing = rawData.map(articleObject => {
-            return {}
+        Article.all = rawData.map(articleObject => new Article(articleObject));
 
     };
 
@@ -54,7 +51,9 @@ var app = app || {};
 
     // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map().reduce();
+
+        return Article.all.map(article => article.body.split(' ').length).reduce((total, article) => total + article);
+
     };
 
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. You will probably need to use the optional accumulator argument in your reduce call.
