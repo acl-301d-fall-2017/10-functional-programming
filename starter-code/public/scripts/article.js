@@ -6,7 +6,7 @@ var app = app || {};
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
 
-(function (module) { 
+(function (module) {
     function Article(rawDataObj) {
         /* REVIEW: In Lab 8, we explored a lot of new functionality going on here. Let's re-examine the concept of context.
     Normally, "this" inside of a constructor function refers to the newly instantiated object.
@@ -53,12 +53,12 @@ var app = app || {};
 
     // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map(article => article.body).reduce();
+        return Article.all.map(article => article.body.split(' ').length).reduce((total, article) => total + article);
     };
 
     // TODONE: Chain together a .map() and a .reduce() call to produce an array of unique author names. You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        return Article.all.map(article => article.author).reduce((allAuthors, author){
+        return Article.all.map(article => article.author).reduce((allAuthors, author) => {
             if (!allAuthors.includes(author)){
                 allAuthors.push(author);
             }
@@ -67,12 +67,19 @@ var app = app || {};
 
     Article.numWordsByAuthor = () => {
         return Article.allAuthors().map(author => {
-        // TODO: Transform each author string into an object with properties for the author's name, as well as the total number of words across all articles written by the specified author.
-        // HINT: This .map() should be set up to return an object literal with two properties.
-        // The first property should be pretty straightforward, but you will need to chain some combination of .filter(), .map(), and .reduce() to get the value for the second property.
+            // TODONE: Transform each author string into an object with properties for the author's name, as well as the total number of words across all articles written by the specified author.
+            // HINT: This .map() should be set up to return an object literal with two properties.
+            // The first property should be pretty straightforward, but you will need to chain some combination of .filter(), .map(), and .reduce() to get the value for the second property.
+            const authorWords = Article.all.filter(article => article.author === author).map(article => article.body.split(' ').length).reduce((total, article) => total + article);
+            // Stretchy: total number of articles per author
+            const totalAuthorArticles = Article.all.filter(article => article.author === author).length;
+            // Stretchy: average number of words per article
+            const avgWords = Math.round(authorWords / totalAuthorArticles);
 
+            return {author: author, totalWords: authorWords, articlesByAuthor: totalAuthorArticles, avgWords: avgWords };
         });
     };
+
 
     Article.truncateTable = callback => {
         $.ajax({
