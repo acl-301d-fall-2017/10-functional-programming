@@ -1,7 +1,7 @@
 'use strict';
 var app = app || {};
 
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
+// TODO-DONE: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
@@ -30,13 +30,17 @@ var app = app || {};
     Article.loadAll = rawData => {
         rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODO: Refactor this .forEach() code, by using a .map() call instead, since what we are trying to accomplish is the transformation of one collection into another. Remember that we can set variables equal to the result of functions. So if we set a variable equal to the result of a .map(), it will be our transformed array.
-    // There is no need to push to anything.
+        // TODO: Refactor this .forEach() code, by using a .map() call instead, since what we are trying to accomplish is the transformation of one collection into another. Remember that we can set variables equal to the result of functions. So if we set a variable equal to the result of a .map(), it will be our transformed array.
+        // There is no need to push to anything.
 
-    /* OLD forEach():
+        /* OLD forEach():
   rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
 
 */
+        //not finished
+        const dataArray = rawData.map(articleObject => new Article(articleObject));
+        const dataArrayThing = rawData.map(articleObject => {
+            return {}
 
     };
 
