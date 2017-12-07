@@ -1,5 +1,5 @@
 'use strict';
-var app = app || {};
+const app = app || {};
 
 // TODONE: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
 // Give the IIFE a parameter called 'module'.
@@ -51,7 +51,7 @@ var app = app || {};
             });
     };
 
-    // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. Yes, you have to do it this way.
+    // TODONE: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. Yes, you have to do it this way.
     Article.numWordsAll = () => {
         return Article.all.map(article => article.body.split(' ').length).reduce((total, article) => total + article);
     };
@@ -62,6 +62,7 @@ var app = app || {};
             if (!allAuthors.includes(author)){
                 allAuthors.push(author);
             }
+            return allAuthors;
         },[]);
     };
 
@@ -125,5 +126,5 @@ var app = app || {};
             .then(console.log)
             .then(callback);
     };
-    module.Article = module;
+    module.Article = Article;
 }) (app);
