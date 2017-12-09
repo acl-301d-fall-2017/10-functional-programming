@@ -7,7 +7,7 @@ var app = app || {};
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
 // Keep in mind that all references to 'Article' in this file now need to be renamed to 'app.Article'. There are not separate instructions for those; you'll need to debug and find them on your own.
 (function (module) {
-    let articleView = {};
+    const articleView = {};
 
     articleView.populateFilters = () => {
         $('article').each(function() {
@@ -138,7 +138,7 @@ var app = app || {};
     articleView.initAdminPage = () => {
         // TODO: Call the Handlebars .compile() method, which will return a function for you to use where needed.
         const template = Handlebars.compile($('#author-template').text());
-        
+
         // Make sure you assign the result of your Handlebars.compile call to a variable called "template", since we are then calling "template" below.
 
         // REVIEW: We use .forEach() here because we are relying on the side-effects of the callback function: appending to the DOM.
@@ -150,5 +150,5 @@ var app = app || {};
         $('#blog-stats .words').text(app.Article.numWordsAll());
     };
     module.articleView = articleView;
-    
-    })(app);
+
+})(app);

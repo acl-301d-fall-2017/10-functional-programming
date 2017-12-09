@@ -6,16 +6,15 @@ var app = app || {};
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
 (function (module) {
+
     function Article(rawDataObj) {
         /* REVIEW: In Lab 8, we explored a lot of new functionality going on here. Let's re-examine the concept of context.
-      Normally, "this" inside of a constructor function refers to the newly instantiated object.
-      However, in the function we're passing to forEach, "this" would normally refer to "undefined" in strict mode. As a result, we had to pass a second argument to forEach to make sure our "this" was still referring to our instantiated object.
-      One of the primary purposes of lexical arrow functions, besides cleaning up syntax to use fewer lines of code, is to also preserve context. That means that when you declare a function using lexical arrows, "this" inside the function will still be the same "this" as it was outside the function.
-      As a result, we no longer have to pass in the optional "this" argument to forEach!*/
+        Normally, "this" inside of a constructor function refers to the newly instantiated object.
+        However, in the function we're passing to forEach, "this" would normally refer to "undefined" in strict mode. As a result, we had to pass a second argument to forEach to make sure our "this" was still referring to our instantiated object.
+        One of the primary purposes of lexical arrow functions, besides cleaning up syntax to use fewer lines of code, is to also preserve context. That means that when you declare a function using lexical arrows, "this" inside the function will still be the same "this" as it was outside the function.
+        As a result, we no longer have to pass in the optional "this" argument to forEach!*/
         Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
     }
-
-    // Article.all = [];
 
     Article.prototype.toHtml = function() {
         const template = Handlebars.compile($('#article-template').text());
@@ -47,37 +46,58 @@ var app = app || {};
             });
     };
 
+
     // TODO DONE: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        const mapped = Article.all.map(articleObject => articleObject.body);
-        const reduced = mapped.reduce((totalWords, body) => { 
-            console.log(body.split(' ').length); 
-            return totalWords + body.split(' ').length; 
-        }, 0);
+        const wordsAll = Article.all.map(articleObject => articleObject.body)
+            .reduce((totalWords, body) => {
+                console.log(body.split(' ').length);
+                return totalWords + body.split(' ').length;
+            },0);
+        return wordsAll;
     };
+
 
     // TODO DONE: Chain together a .map() and a .reduce() call to produce an array of unique author names. You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        const mapped = Article.all.map(articleObject => articleObject.author);
-        const reduced = mapped.reduce((uniqueAuthor, author) => {
-            if (!uniqueAuthor.includes(author)) {
-                uniqueAuthor.push(author);
-            }
-            return uniqueAuthor;
-        }, []);
-        return reduced;
+        const allAuthors = Article.all.map(articleObject => articleObject.author)
+            .reduce((uniqueAuthor, author) => {
+                if (!uniqueAuthor.includes(author)) {
+                    uniqueAuthor.push(author);
+                }
+                return uniqueAuthor;
+            }, []);
+        console.log(allAuthors);
+        return allAuthors;
     };
 
+
     Article.numWordsByAuthor = () => {
-        const mapped = Article.all.map(articleObject => articleObject.author);
-        const filter = Artclie.all.filter(articleObject => articleObject.author).map(articleObject.body)
-        return Article.allAuthors().map(author => {
         // TODO: Transform each author string into an object with properties for the author's name, as well as the total number of words across all articles written by the specified author.
         // HINT: This .map() should be set up to return an object literal with two properties.
         // The first property should be pretty straightforward, but you will need to chain some combination of .filter(), .map(), and .reduce() to get the value for the second property.
 
+        console.log('all authors: ' + Article.allAuthors());
+
+        const authorStats = Article.allAuthors().map(function(author){
+            const totalWords = Article.all.filter(article => article.author === author)
+                .map(articleObject => articleObject.body)
+                .reduce((totalWords, body) => {
+                    return totalWords + body.split(' ').length;
+                }, 0);
+
+            const authorStat = {
+                name: author,
+                wordCount: totalWords
+            };
+
+            return authorStat;
         });
+
+        console.log('authorStat', authorStats);
+        return authorStats;
     };
+
 
     Article.truncateTable = callback => {
         $.ajax({
@@ -126,4 +146,3 @@ var app = app || {};
     module.Article = Article;
 
 })(app);
-
