@@ -1,5 +1,5 @@
 'use strict';
-var app = app || {};
+var app = app || {}; // eslint-disable-line
 
 // TODO DONE: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
 // Give the IIFE a parameter called 'module'.
@@ -94,7 +94,7 @@ var app = app || {};
         let article;
         $('#articles').empty();
 
-        article = new Article({
+        article = new Article({ // eslint-disable-line
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
@@ -109,7 +109,7 @@ var app = app || {};
 
     articleView.submit = event => {
         event.preventDefault();
-        const article = new Article({
+        const article = new Article({ // eslint-disable-line
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),

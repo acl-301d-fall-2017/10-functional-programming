@@ -1,5 +1,5 @@
 'use strict';
-var app = app || {};
+var app = app || {}; // eslint-disable-line
 
 // TODO DONE: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
 // Give the IIFE a parameter called 'module'.
